@@ -6,6 +6,12 @@
 
 #define BOARDRAM	0x0800
 
+#define	KEY_LEFT	0x08
+#define	KEY_UP		0x5e
+#define	KEY_DOWN	0x0a
+#define	KEY_RIGHT	0x09
+#define	KEY_BREAK	0x03
+
 char startboard[9][9] = {
 	{ 1, 2, 3, 4, 5, 6, 7, 8, 9 },
 	{ 6, 4, 0, 0, 0, 0, 0, 0, 0 },
