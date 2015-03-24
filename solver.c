@@ -59,7 +59,7 @@ void drawboard(void) {
 	int i, j, pos;
 	char val;
 
-	pos = 96+9;
+	pos = 96+3;
 	curpos(pos);
 
 	for (i = 0; i < 9; i++) {
@@ -87,15 +87,15 @@ void drawframe(void) {
 	cls(0);
 
 	curpos(12);
-	putstr("SUDOKU!");
+	putstr("COCODOKU");
 
-	for (i = 64+9; i < 576+9; i += 128) {
+	for (i = 64+3; i < 576+3; i += 128) {
 		curpos(i);
 		for (j = 0; j < 13; j++)
 			putchar(0xef);
 	}
 
-	for (i = 64+7; i < 64+27; i += 5) {
+	for (i = 64+1; i < 64+21; i += 5) {
 		pos = i;
 		curpos(pos);
 		for (j = 0; j < 13; pos += 32, j++) {
