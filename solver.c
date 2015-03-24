@@ -281,7 +281,7 @@ int keyval(void)
 
 void editpuzzle(void)
 {
-	int val, pos;
+	int val, scnval, pos;
 	int i = 0, j = 0, k;
 
 	cls(0);
@@ -302,28 +302,26 @@ void editpuzzle(void)
 		pos += 32 * (4 * (i / 3) + (i % 3));
 		curpos(pos);
 
-		if (val = rdboard(i, j))
-			putvdg(0x30 + (val & 0x7f));
+		if (scnval = rdboard(i, j))
+			putvdg(0x70 + (scnval & 0x7f));
 		else
 			putvdg(0x20);
 		do {
 			val = chkchar();
 		} while (val == -1);
-		if (!rdboard(i, j)) {
-			curpos(pos);
+		curpos(pos);
+		if (scnval = rdboard(i, j))
+			putvdg(0x30 + (scnval & 0x7f));
+		else
 			putchar(' ');
-		}
 
 		curpos(pos);
 		if ((val >= '0') && (val <= '9')) {
 			val -= '0';
-			if (!val) {
+			if (!val)
 				wrboard(i, j, 0);
-				putchar(' ');
-			} else {
+			else
 				wrboard(i, j, 0x80 + val);
-				putvdg(0x30 + val);
-			}
 
 			curpos(492);
 			if (invalid(1)) {
@@ -333,6 +331,12 @@ void editpuzzle(void)
 				puts("VALID");
 				putvdg(0x80);
 			}
+
+			curpos(pos);
+			if (!val)
+				putchar(' ');
+			else
+				putvdg(0x30 + val);
 		} else if (val == 'C') {
 			curpos(487);
 			puts("CLEAR BOARD? (Y/N)");
