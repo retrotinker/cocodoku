@@ -24,18 +24,6 @@ _exit:
 	JMP	[$FFFE]
 	EXPORT	_exit
 
-_putchar:
-	TFR	X,D
-	EXG	A,B
-	CMPA	#$0A
-	BNE	.1
-	JSR	[$A002]
-	LDA	#$0D
-.1:
-	JSR	[$A002]
-	RTS
-	EXPORT	_putchar
-
 	LOC	1
 .execname:
 	FCC	"ROM"

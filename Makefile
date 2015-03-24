@@ -15,7 +15,7 @@ libbcc.a: imul.o isl.o isr.o isru.o imod.o imodu.o idiv.o idivu.o \
 	rm -f $@
 	ar09 cr $@ $^
 
-solver.aout: crtrom.o solver.o screen.o
+solver.aout: crtrom.o solver.o screen.o cocoio.o
 	ld09 -o $@ -T$(CARTLOAD) $^ -lbcc
 
 solver.rom: solver.aout
