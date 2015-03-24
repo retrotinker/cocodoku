@@ -34,10 +34,6 @@ void abort(char *str)
 	exit();
 }
 
-int chkchr() {
-	return -1;
-}
-
 void wrboard(int i, int j, char val)
 {
 	*((char *)BOARDRAM + i*9 + j) = val;
@@ -209,7 +205,7 @@ int invalid(int okzero)
 int solve(int row, int column) {
 	int i, nrow, ncol;
 
-	if (chkchr() != -1)
+	if (chkchar() != -1)
 		exit();
 
 	if (column != 8) {
