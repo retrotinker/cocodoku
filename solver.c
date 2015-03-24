@@ -274,11 +274,59 @@ void showtitle(void)
 	while (chkchar() == -1) {}
 }
 
+int keyval(void)
+{
+	char val;
+
+	putchar(' ');
+	do {
+		val = chkchar();
+	} while ((val == -1) || (val < '0') || (val > '9'));
+	val -= '0';
+
+	return val;
+}
+
+void editpuzzle(void)
+{
+	int i, j, pos;
+	char val;
+
+	cls(0);
+
+	drawframe();
+
+	pos = 96+2;
+	curpos(pos);
+
+	for (i = 0; i < 9; i++) {
+		for (j = 0; j < 9; j++) {
+			val = keyval();
+			wrboard(i, j, val);
+			curpos(pos);
+			if (!val)
+				putchar(' ');
+			else
+				putchar('0' + val);
+			pos++;
+			if ((j % 3) == 2)
+				pos += 2;
+			curpos(pos);
+		}
+		pos += (32 - 15);
+		if ((i % 3) == 2)
+			pos += 32;
+		curpos(pos);
+	}
+}
+
 void main(int argc, char *argv)
 {
 	char *setupdata = startboard;
 
 	showtitle();
+
+	editpuzzle();
 
 	cls(0);
 
@@ -287,7 +335,9 @@ void main(int argc, char *argv)
 	curpos(12);
 	puts("COCODOKU");
 
+#if 0
 	setupboard(setupdata);
+#endif
 
 	drawboard();
 
