@@ -98,7 +98,7 @@ void drawframe(void)
 	for (i = 64+2; i < 576+2; i += 128) {
 		curpos(i);
 		for (j = 0; j < 13; j++)
-			putchar(0xef);
+			putvdg(0xef);
 	}
 
 	for (i = 64; i < 64+20; i += 5) {
@@ -106,8 +106,8 @@ void drawframe(void)
 		curpos(pos);
 		for (j = 0; j < 13; pos += 32, j++) {
 			curpos(pos);
-			putchar(0xef);
-			putchar(0xef);
+			putvdg(0xef);
+			putvdg(0xef);
 		}
 	}
 }
