@@ -18,7 +18,7 @@ char startboard[9][9] = {
 	{ 5, 0, 0, 0, 0, 0, 0, 0, 3 },
 };
 
-int putstr(char *str)
+int puts(char *str)
 {
 	unsigned char c;
 
@@ -30,7 +30,7 @@ int putstr(char *str)
 
 void abort(char *str)
 {
-	putstr(str);
+	puts(str);
 	exit();
 }
 
@@ -87,7 +87,7 @@ void drawframe(void)
 	cls(0);
 
 	curpos(12);
-	putstr("COCODOKU");
+	puts("COCODOKU");
 
 	for (i = 64+3; i < 576+3; i += 128) {
 		curpos(i);
@@ -259,10 +259,10 @@ void main(int argc, char *argv)
 
 	if (solve(0, 0)) {
 		curpos(493);
-		putstr("VALID");
+		puts("VALID");
 	} else {
 		curpos(492);
-		putstr("INVALID");
+		puts("INVALID");
 	}
 
 	while (1) {};
