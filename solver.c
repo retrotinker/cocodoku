@@ -4,7 +4,7 @@
  * Copyright 2015 by John W. Linville
  */
 
-#define BOARDRAM	0x0800
+#define	BOARDRAM	0x0800
 
 #define	KEY_LEFT	0x08
 #define	KEY_UP		0x5e
