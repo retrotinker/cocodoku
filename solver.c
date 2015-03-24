@@ -304,29 +304,97 @@ int keyval(void)
 
 void editpuzzle(void)
 {
-	int i, j, pos;
-	char val;
+	int val, pos;
+	int i = 0, j = 0, k;
 
 	cls(0);
 
 	drawframe();
 	drawboard();
+	if (invalid(1)) {
+		curpos(492);
+		puts("INVALID");
+	} else {
+		curpos(493);
+		puts("VALID");
+	}
 
-	for (i = 0; i < 9; i++) {
-		for (j = 0; j < 9; j++) {
-			pos = 96 + 2;
-			pos += 5 * (j / 3) + (j % 3);
-			pos += 32 * (4 * (i / 3) + (i % 3));
-			curpos(pos);
+	for (;;) {
+		pos = 96 + 2;
+		pos += 5 * (j / 3) + (j % 3);
+		pos += 32 * (4 * (i / 3) + (i % 3));
+		curpos(pos);
 
-			val = keyval();
+		if (val = rdboard(i, j))
+			putvdg(0x30 + (val & 0x7f));
+		else
+			putvdg(0x20);
+		do {
+			val = chkchar();
+		} while (val == -1);
+		if (!rdboard(i, j)) {
 			curpos(pos);
-			if (!val)
+			putchar(' ');
+		}
+
+		curpos(pos);
+		if ((val >= '0') && (val <= '9')) {
+			val -= '0';
+			if (!val) {
+				wrboard(i, j, 0);
 				putchar(' ');
-			else {
+			} else {
 				wrboard(i, j, 0x80 + val);
 				putvdg(0x30 + val);
 			}
+
+			curpos(492);
+			if (invalid(1)) {
+				puts("INVALID");
+			} else {
+				putvdg(0x80);
+				puts("VALID");
+				putvdg(0x80);
+			}
+		} else if (val == 'C') {
+			curpos(487);
+			puts("CLEAR BOARD? (Y/N)");
+
+			do {
+				val = chkchar();
+			} while ((val == -1) && (val != 'Y') && (val != 'N'));
+
+			curpos(487);
+			for (k = 0; k < 18; k++)
+				putvdg(0x80);
+
+			if (val == 'Y') {
+				clrboard();
+				drawboard();
+			} else {
+				if (invalid(1)) {
+					curpos(492);
+					puts("INVALID");
+				} else {
+					curpos(493);
+					puts("VALID");
+				}
+			}
+		} else if (val == KEY_LEFT) {
+			if (j)
+				j--;
+		} else if (val == KEY_RIGHT) {
+			if (j < 8)
+				j++;
+		} else if (val == KEY_UP) {
+			if (i)
+				i--;
+		} else if (val == KEY_DOWN) {
+			if (i < 8)
+				i++;
+		} else if (val == KEY_BREAK) {
+			if (!invalid(1))
+				break;
 		}
 	}
 }
