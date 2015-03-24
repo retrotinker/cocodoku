@@ -51,7 +51,7 @@ void setupboard(char *addr)
 	for (i = 0; i < 9; i++)
 		for (j = 0; j < 9; j++)
 			wrboard(i, j, *addr++);
-};
+}
 
 void drawboard(void)
 {
