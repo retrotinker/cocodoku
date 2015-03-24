@@ -72,11 +72,13 @@ void drawboard(void)
 	int i, j, pos;
 	char val;
 
-	pos = 96+2;
-	curpos(pos);
-
 	for (i = 0; i < 9; i++) {
 		for (j = 0; j < 9; j++) {
+			pos = 96 + 2;
+			pos += 5 * (j / 3) + (j % 3);
+			pos += 32 * (4 * (i / 3) + (i % 3));
+			curpos(pos);
+
 			val = rdboard(i, j);
 			if (!val)
 				putchar(' ');
@@ -85,15 +87,7 @@ void drawboard(void)
 					putchar('0' + val);
 				else
 					putvdg(0x30 + (val & 0x7f));
-			pos++;
-			if ((j % 3) == 2)
-				pos += 2;
-			curpos(pos);
 		}
-		pos += (32 - 15);
-		if ((i % 3) == 2)
-			pos += 32;
-		curpos(pos);
 	}
 }
 
@@ -318,11 +312,13 @@ void editpuzzle(void)
 	drawframe();
 	drawboard();
 
-	pos = 96+2;
-	curpos(pos);
-
 	for (i = 0; i < 9; i++) {
 		for (j = 0; j < 9; j++) {
+			pos = 96 + 2;
+			pos += 5 * (j / 3) + (j % 3);
+			pos += 32 * (4 * (i / 3) + (i % 3));
+			curpos(pos);
+
 			val = keyval();
 			curpos(pos);
 			if (!val)
@@ -331,15 +327,7 @@ void editpuzzle(void)
 				wrboard(i, j, 0x80 + val);
 				putvdg(0x30 + val);
 			}
-			pos++;
-			if ((j % 3) == 2)
-				pos += 2;
-			curpos(pos);
 		}
-		pos += (32 - 15);
-		if ((i % 3) == 2)
-			pos += 32;
-		curpos(pos);
 	}
 }
 
