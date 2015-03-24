@@ -58,7 +58,7 @@ void drawboard(void)
 	int i, j, pos;
 	char val;
 
-	pos = 96+3;
+	pos = 96+2;
 	curpos(pos);
 
 	for (i = 0; i < 9; i++) {
@@ -84,18 +84,13 @@ void drawframe(void)
 {
 	int i, j, pos;
 
-	cls(0);
-
-	curpos(12);
-	puts("COCODOKU");
-
-	for (i = 64+3; i < 576+3; i += 128) {
+	for (i = 64+2; i < 576+2; i += 128) {
 		curpos(i);
 		for (j = 0; j < 13; j++)
 			putchar(0xef);
 	}
 
-	for (i = 64+1; i < 64+21; i += 5) {
+	for (i = 64; i < 64+20; i += 5) {
 		pos = i;
 		curpos(pos);
 		for (j = 0; j < 13; pos += 32, j++) {
@@ -247,11 +242,50 @@ int solve(int row, int column)
 		return solve(nrow, ncol);
 }
 
+void showtitle(void)
+{
+	cls(0);
+
+	drawframe();
+
+	curpos(53);
+	puts("COCODOKU");
+
+	curpos(114);
+	puts("NUMERIC PUZZLE");
+
+	curpos(148);
+	puts("LOGIC GAME");
+
+	curpos(276);
+	puts("PROGRAM BY");
+
+	curpos(306);
+	puts("J. W. LINVILLE");
+
+	curpos(341);
+	puts("(C) 2015");
+
+	curpos(467);
+	puts("PRESS ANY KEY");
+	curpos(500);
+	puts("TO CONTINUE");
+
+	while (chkchar() == -1) {}
+}
+
 void main(int argc, char *argv)
 {
 	char *setupdata = startboard;
 
+	showtitle();
+
+	cls(0);
+
 	drawframe();
+
+	curpos(12);
+	puts("COCODOKU");
 
 	setupboard(setupdata);
 
