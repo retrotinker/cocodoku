@@ -39,11 +39,13 @@ void wrboard(int i, int j, char val)
 	*((char *)BOARDRAM + i*9 + j) = val;
 }
 
-int rdboard(int i, int j) {
+int rdboard(int i, int j)
+{
 	return *((char *)0x0800 + i*9 + j);
 }
 
-void setupboard(char *addr) {
+void setupboard(char *addr)
+{
 	int i, j;
 
 	for (i = 0; i < 9; i++)
@@ -51,7 +53,8 @@ void setupboard(char *addr) {
 			wrboard(i, j, *addr++);
 };
 
-void drawboard(void) {
+void drawboard(void)
+{
 	int i, j, pos;
 	char val;
 
@@ -77,7 +80,8 @@ void drawboard(void) {
 	}
 }
 
-void drawframe(void) {
+void drawframe(void)
+{
 	int i, j, pos;
 
 	cls(0);
@@ -202,7 +206,8 @@ int invalid(int okzero)
 	return 0;
 }
 
-int solve(int row, int column) {
+int solve(int row, int column)
+{
 	int i, nrow, ncol;
 
 	if (chkchar() != -1)
