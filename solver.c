@@ -266,19 +266,6 @@ void showtitle(void)
 	while (chkchar() == -1) {}
 }
 
-int keyval(void)
-{
-	char val;
-
-	putvdg(0x20);
-	do {
-		val = chkchar();
-	} while ((val == -1) || (val < '0') || (val > '9'));
-	val -= '0';
-
-	return val;
-}
-
 void editpuzzle(void)
 {
 	int val, scnval, pos;
