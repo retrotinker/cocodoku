@@ -34,6 +34,11 @@ void abort(char *str)
 	exit();
 }
 
+void clrboard(void)
+{
+	memset((char *)BOARDRAM, 0, sizeof(startboard));
+}
+
 void wrboard(int i, int j, char val)
 {
 	*((char *)BOARDRAM + i*9 + j) = val;
@@ -50,7 +55,10 @@ void setupboard(char *addr)
 
 	for (i = 0; i < 9; i++)
 		for (j = 0; j < 9; j++)
-			wrboard(i, j, *addr++);
+			if (*addr)
+				wrboard(i, j, 0x80 + *addr++);
+			else
+				wrboard(i, j, *addr++);
 }
 
 void drawboard(void)
@@ -67,7 +75,10 @@ void drawboard(void)
 			if (!val)
 				putchar(' ');
 			else
-				putchar('0' + val);
+				if (val < 128)
+					putchar('0' + val);
+				else
+					putvdg(0x30 + (val & 0x7f));
 			pos++;
 			if ((j % 3) == 2)
 				pos += 2;
@@ -110,6 +121,7 @@ int invldrow(int row, int okzero)
 
 	for (col = 0; col < 9; col++) {
 		val = rdboard(row, col);
+		val &= 0x7f;
 		if (!val)
 			if (okzero)
 				continue;
@@ -133,6 +145,7 @@ int invldcol(int col, int okzero)
 
 	for (row = 0; row < 9; row++) {
 		val = rdboard(row, col);
+		val &= 0x7f;
 		if (!val)
 			if (okzero)
 				continue;
@@ -159,6 +172,7 @@ int invldblock(int i, int okzero)
 		bj = (3 * (i % 3)) + (j % 3);
 
 		val = rdboard(bi, bj);
+		val &= 0x7f;
 		if (!val)
 			if (okzero)
 				continue;
@@ -247,6 +261,7 @@ void showtitle(void)
 	cls(0);
 
 	drawframe();
+	drawboard();
 
 	curpos(53);
 	puts("COCODOKU");
@@ -278,7 +293,7 @@ int keyval(void)
 {
 	char val;
 
-	putchar(' ');
+	putvdg(0x20);
 	do {
 		val = chkchar();
 	} while ((val == -1) || (val < '0') || (val > '9'));
@@ -295,6 +310,7 @@ void editpuzzle(void)
 	cls(0);
 
 	drawframe();
+	drawboard();
 
 	pos = 96+2;
 	curpos(pos);
@@ -302,12 +318,13 @@ void editpuzzle(void)
 	for (i = 0; i < 9; i++) {
 		for (j = 0; j < 9; j++) {
 			val = keyval();
-			wrboard(i, j, val);
 			curpos(pos);
 			if (!val)
 				putchar(' ');
-			else
-				putchar('0' + val);
+			else {
+				wrboard(i, j, 0x80 + val);
+				putvdg(0x30 + val);
+			}
 			pos++;
 			if ((j % 3) == 2)
 				pos += 2;
@@ -323,6 +340,8 @@ void editpuzzle(void)
 void main(int argc, char *argv)
 {
 	char *setupdata = startboard;
+
+	clrboard();
 
 	showtitle();
 
