@@ -26,3 +26,14 @@ void curpos(unsigned int val)
 
 	*CURPOS = TXTBASE + val;
 }
+
+void putvdg(int val)
+{
+	*((unsigned char *)*CURPOS) = val;
+
+	if (++(*CURPOS) >= TXTBASE + TXTSIZE) {
+		*CURPOS = TXTBASE + TXTSIZE - 32;
+		memcpy(TXTBASE, TXTBASE + 32, TXTSIZE - 32);
+		memset(*CURPOS, 0x60, 32);
+	}
+}

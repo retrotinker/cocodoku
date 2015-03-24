@@ -14,3 +14,5 @@
 extern void cls(unsigned char color);
 
 extern void curpos(unsigned int val);
+
+extern void putvdg(int val);
