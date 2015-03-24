@@ -5,24 +5,13 @@
  */
 
 #define	BOARDRAM	0x0800
+#define BOARDSIZE	9*9
 
 #define	KEY_LEFT	0x08
 #define	KEY_UP		0x5e
 #define	KEY_DOWN	0x0a
 #define	KEY_RIGHT	0x09
 #define	KEY_BREAK	0x03
-
-char startboard[9][9] = {
-	{ 1, 2, 3, 4, 5, 6, 7, 8, 9 },
-	{ 6, 4, 0, 0, 0, 0, 0, 0, 0 },
-	{ 7, 0, 5, 0, 0, 0, 0, 0, 0 },
-	{ 8, 0, 0, 6, 0, 0, 0, 0, 0 },
-	{ 9, 0, 0, 0, 7, 0, 0, 0, 0 },
-	{ 2, 0, 0, 0, 0, 8, 0, 0, 0 },
-	{ 3, 0, 0, 0, 0, 0, 9, 0, 0 },
-	{ 4, 0, 0, 0, 0, 0, 0, 2, 0 },
-	{ 5, 0, 0, 0, 0, 0, 0, 0, 3 },
-};
 
 int puts(char *str)
 {
@@ -42,7 +31,7 @@ void abort(char *str)
 
 void clrboard(void)
 {
-	memset((char *)BOARDRAM, 0, sizeof(startboard));
+	memset((char *)BOARDRAM, 0, BOARDSIZE);
 }
 
 void wrboard(int i, int j, char val)
@@ -53,18 +42,6 @@ void wrboard(int i, int j, char val)
 int rdboard(int i, int j)
 {
 	return *((char *)0x0800 + i*9 + j);
-}
-
-void setupboard(char *addr)
-{
-	int i, j;
-
-	for (i = 0; i < 9; i++)
-		for (j = 0; j < 9; j++)
-			if (*addr)
-				wrboard(i, j, 0x80 + *addr++);
-			else
-				wrboard(i, j, *addr++);
 }
 
 void drawboard(void)
@@ -401,8 +378,6 @@ void editpuzzle(void)
 
 void main(int argc, char *argv)
 {
-	char *setupdata = startboard;
-
 	clrboard();
 
 	showtitle();
@@ -415,10 +390,6 @@ void main(int argc, char *argv)
 
 	curpos(12);
 	puts("COCODOKU");
-
-#if 0
-	setupboard(setupdata);
-#endif
 
 	drawboard();
 
