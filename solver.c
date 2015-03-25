@@ -308,6 +308,9 @@ void editboard(void)
 	curpos(21);
 	puts("COCODOKU");
 
+	curpos(34);
+	puts("PUZZLE EDITOR");
+
 	curpos(83);
 	putvdg(0x12);
 	puts("ESET PUZZLE");
