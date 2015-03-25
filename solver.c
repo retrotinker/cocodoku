@@ -436,6 +436,125 @@ void editboard(void)
 	}
 }
 
+void playboard(void)
+{
+	int val, scnval, pos;
+	int i = 0, j = 0, k;
+
+	cls(0);
+
+	curpos(21);
+	puts("COCODOKU");
+
+	curpos(83);
+	putvdg(0x12);
+	puts("ESET PUZZLE");
+
+	curpos(147);
+	putvdg(0x13);
+	puts("AVE PROGRESS");
+
+	curpos(275);
+	puts("USE ARROWS TO");
+	curpos(308);
+	puts("MOVE AROUND");
+
+	curpos(370);
+	puts("USE NUMBERS TO");
+	curpos(403);
+	puts("SOLVE PUZZLE");
+
+	curpos(467);
+	putvdg(0x02);
+	putvdg(0x12);
+	putvdg(0x05);
+	putvdg(0x01);
+	putvdg(0x0b);
+	puts(" KEY TO");
+	curpos(499);
+	puts("FORFEIT GAME");
+
+	setupboard();
+	saveboard();
+
+	drawframe();
+	drawboard();
+	if (invalid(1)) {
+		curpos(485);
+		puts("INVALID");
+	} else {
+		curpos(486);
+		puts("VALID");
+	}
+
+	for (;;) {
+		pos = 96 + 2;
+		pos += 5 * (j / 3) + (j % 3);
+		pos += 32 * (4 * (i / 3) + (i % 3));
+		curpos(pos);
+
+		if (scnval = rdboard(i, j))
+			putvdg(0x40 * !!(scnval & 0x80) + 0x30 + (scnval & 0x7f));
+		else
+			putvdg(0x20);
+		do {
+			val = chkchar();
+		} while (val == -1);
+		curpos(pos);
+		if (scnval = rdboard(i, j))
+			putvdg(0x40 * !(scnval & 0x80) + 0x30 + (scnval & 0x7f));
+		else
+			putchar(' ');
+
+		curpos(pos);
+		if ((val >= '0') && (val <= '9')) {
+			if (rdboard(i, j) & 0x80)
+				continue;
+
+			val -= '0';
+			if (!val)
+				wrboard(i, j, 0);
+			else
+				wrboard(i, j, val);
+
+			curpos(485);
+			if (invalid(1)) {
+				puts("INVALID");
+			} else {
+				putvdg(0x80);
+				puts("VALID");
+				putvdg(0x80);
+			}
+
+			curpos(pos);
+			if (!val)
+				putchar(' ');
+			else
+				putvdg(0x70 + val);
+		} else if (val == 'R') {
+			resetboard();
+			drawboard();
+		} else if (val == 'S') {
+			saveboard();
+		} else if (val == KEY_LEFT) {
+			if (j)
+				j--;
+		} else if (val == KEY_RIGHT) {
+			if (j < 8)
+				j++;
+		} else if (val == KEY_UP) {
+			if (i)
+				i--;
+		} else if (val == KEY_DOWN) {
+			if (i < 8)
+				i++;
+		} else if (val == KEY_BREAK) {
+			if (!invalid(1))
+				break;
+		}
+	}
+}
+
 void main(int argc, char *argv)
 {
 restart:
@@ -446,6 +565,8 @@ restart:
 	clrboard();
 
 	editboard();
+
+	playboard();
 
 	cls(0);
 
