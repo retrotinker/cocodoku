@@ -391,14 +391,14 @@ void editpuzzle(void)
 			else
 				putvdg(0x30 + val);
 		} else if (val == 'C') {
-			curpos(487);
+			curpos(480);
 			puts("CLEAR BOARD? (Y/N)");
 
 			do {
 				val = chkchar();
 			} while ((val == -1) && (val != 'Y') && (val != 'N'));
 
-			curpos(487);
+			curpos(480);
 			for (k = 0; k < 18; k++)
 				putvdg(0x80);
 
