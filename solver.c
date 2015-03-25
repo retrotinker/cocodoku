@@ -308,6 +308,9 @@ void editpuzzle(void)
 	curpos(21);
 	puts("COCODOKU");
 
+	setupboard();
+	saveboard();
+
 	drawframe();
 	drawboard();
 	if (invalid(1)) {
@@ -383,6 +386,9 @@ void editpuzzle(void)
 					puts("VALID");
 				}
 			}
+		} else if (val == 'R') {
+			resetboard();
+			drawboard();
 		} else if (val == KEY_LEFT) {
 			if (j)
 				j--;
