@@ -46,6 +46,26 @@ void clrboard(void)
 	memset((char *)BOARDRAM, 0, BOARDSIZE);
 }
 
+void saveboard(void)
+{
+	memcpy((char *)BOARDRAM+BOARDSIZE, BOARDRAM, BOARDSIZE);
+}
+
+void resetboard(void)
+{
+	memcpy((char *)BOARDRAM, BOARDRAM+BOARDSIZE, BOARDSIZE);
+}
+
+void setupboard(void)
+{
+	char *ptr = BOARDRAM;
+	int i;
+
+	for (i = 0; i < BOARDSIZE; ptr++, i++)
+		if (!(*ptr & 0x80))
+			*ptr = 0;
+}
+
 void wrboard(int i, int j, char val)
 {
 	*((char *)BOARDRAM + i*9 + j) = val;
