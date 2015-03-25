@@ -13,6 +13,18 @@
 #define	KEY_RIGHT	0x09
 #define	KEY_BREAK	0x03
 
+char titleboard[9][9] = {
+	{ 0x84,    0,    2, 0x83,    0,    6, 0x87,    0,    9, },
+	{    0,    5,    0,    7,    0,    8, 0x81,    0,    0, },
+	{    0, 0x88,    0,    1, 0x84,    2,    0,    0, 0x86, },
+	{ 0x81,    2,    0,    0,    0, 0x85, 0x88,    0,    7, },
+	{    0,    4, 0x87, 0x88,    1,    9,    0,    0,    0, },
+	{    6,    0,    8,    0,    0, 0x87,    4, 0x81,    5, },
+	{    2, 0x83,    5,    0,    0,    1, 0x89,    0,    0, },
+	{ 0x89,    0,    0, 0x85, 0x88,    4,    0,    0,    0, },
+	{    0,    6, 0x84,    0,    0,    3, 0x85,    0,    1, },
+};
+
 int puts(char *str)
 {
 	unsigned char c;
@@ -369,9 +381,11 @@ void editpuzzle(void)
 
 void main(int argc, char *argv)
 {
-	clrboard();
+	memcpy(BOARDRAM, titleboard, sizeof(titleboard));
 
 	showtitle();
+
+	clrboard();
 
 	editpuzzle();
 
