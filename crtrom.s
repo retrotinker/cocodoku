@@ -14,6 +14,8 @@ __start:
 	PSHS	X
 	LDX	#1
 
+	CLR	$FFD7
+
 	JSR	_main
 	LEAS	8,S
 	EXPORT	__start
