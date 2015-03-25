@@ -14,6 +14,7 @@ __start:
 	PSHS	X
 	LDX	#1
 
+	ORCC	#$50
 	CLR	$FFD7
 
 	JSR	_main
