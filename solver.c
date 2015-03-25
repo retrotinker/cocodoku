@@ -53,7 +53,7 @@ void wrboard(int i, int j, char val)
 
 int rdboard(int i, int j)
 {
-	return *((char *)0x0800 + i*9 + j);
+	return *((char *)BOARDRAM + i*9 + j);
 }
 
 void drawboard(void)
