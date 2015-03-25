@@ -4,7 +4,7 @@
  * Copyright 2015 by John W. Linville
  */
 
-#define	GAMERAM		0x0800
+#define	GAMERAM		0x0600
 #define BOARDSIZE	9*9
 
 #define	KEY_LEFT	0x08
