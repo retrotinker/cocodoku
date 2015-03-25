@@ -308,6 +308,34 @@ void editpuzzle(void)
 	curpos(21);
 	puts("COCODOKU");
 
+	curpos(83);
+	putvdg(0x12);
+	puts("ESET PUZZLE");
+
+	curpos(147);
+	putvdg(0x03);
+	puts("LEAR PUZZLE");
+
+	curpos(275);
+	puts("USE ARROWS TO");
+	curpos(308);
+	puts("MOVE AROUND");
+
+	curpos(370);
+	puts("USE NUMBERS TO");
+	curpos(403);
+	puts("SETUP PUZZLE");
+
+	curpos(467);
+	putvdg(0x02);
+	putvdg(0x12);
+	putvdg(0x05);
+	putvdg(0x01);
+	putvdg(0x0b);
+	puts(" KEY TO");
+	curpos(500);
+	puts("START GAME");
+
 	setupboard();
 	saveboard();
 
