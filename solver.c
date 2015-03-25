@@ -89,6 +89,19 @@ int rdboard(int i, int j)
 	return *((char *)BOARDRAM + i*9 + j);
 }
 
+void putboard(int i, int j, char val)
+{
+	boardpos(i, j);
+
+	if (!val)
+		putchar(' ');
+	else
+		if (val < 128)
+			putchar('0' + val);
+		else
+			putvdg(0x30 + (val & 0x7f));
+}
+
 void showvalid(void)
 {
 	curpos(485);
@@ -110,16 +123,9 @@ void drawboard(void)
 
 	for (i = 0; i < 9; i++) {
 		for (j = 0; j < 9; j++) {
-			boardpos(i, j);
-
 			val = rdboard(i, j);
-			if (!val)
-				putchar(' ');
-			else
-				if (val < 128)
-					putchar('0' + val);
-				else
-					putvdg(0x30 + (val & 0x7f));
+
+			putboard(i, j, val);
 		}
 	}
 }
