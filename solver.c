@@ -298,7 +298,7 @@ void showtitle(void)
 	while (chkchar() == -1) {}
 }
 
-void editpuzzle(void)
+void editboard(void)
 {
 	int val, scnval, pos;
 	int i = 0, j = 0, k;
@@ -445,7 +445,7 @@ restart:
 
 	clrboard();
 
-	editpuzzle();
+	editboard();
 
 	cls(0);
 
