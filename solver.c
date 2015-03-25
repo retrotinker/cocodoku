@@ -381,6 +381,7 @@ void editpuzzle(void)
 
 void main(int argc, char *argv)
 {
+restart:
 	memcpy(BOARDRAM, titleboard, sizeof(titleboard));
 
 	showtitle();
@@ -406,5 +407,7 @@ void main(int argc, char *argv)
 		puts("INVALID");
 	}
 
-	while (1) {};
+	while (chkchar() == -1) {}
+
+	goto restart;
 }
