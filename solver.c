@@ -560,13 +560,13 @@ void playboard(void)
 
 void main(int argc, char *argv)
 {
-restart:
 	memcpy(BOARDRAM, titleboard, sizeof(titleboard));
 
 	showtitle();
 
 	clrboard();
 
+restart:
 	editboard();
 
 	playboard();
