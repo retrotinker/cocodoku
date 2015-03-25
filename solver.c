@@ -66,6 +66,19 @@ void setupboard(void)
 			*ptr = 0;
 }
 
+int boardpos(int i, j)
+{
+	int pos;
+
+	pos = 96 + 2;
+	pos += 5 * (j / 3) + (j % 3);
+	pos += 32 * (4 * (i / 3) + (i % 3));
+
+	curpos(pos);
+
+	return pos;
+}
+
 void wrboard(int i, int j, char val)
 {
 	*((char *)BOARDRAM + i*9 + j) = val;
@@ -92,15 +105,12 @@ void showinvalid(void)
 
 void drawboard(void)
 {
-	int i, j, pos;
+	int i, j;
 	char val;
 
 	for (i = 0; i < 9; i++) {
 		for (j = 0; j < 9; j++) {
-			pos = 96 + 2;
-			pos += 5 * (j / 3) + (j % 3);
-			pos += 32 * (4 * (i / 3) + (i % 3));
-			curpos(pos);
+			boardpos(i, j);
 
 			val = rdboard(i, j);
 			if (!val)
@@ -364,10 +374,7 @@ void editboard(void)
 		showvalid();
 
 	for (;;) {
-		pos = 96 + 2;
-		pos += 5 * (j / 3) + (j % 3);
-		pos += 32 * (4 * (i / 3) + (i % 3));
-		curpos(pos);
+		pos = boardpos(i, j);
 
 		if (scnval = rdboard(i, j))
 			putvdg(0x70 + (scnval & 0x7f));
@@ -492,10 +499,7 @@ void playboard(void)
 		showvalid();
 
 	for (;;) {
-		pos = 96 + 2;
-		pos += 5 * (j / 3) + (j % 3);
-		pos += 32 * (4 * (i / 3) + (i % 3));
-		curpos(pos);
+		pos = boardpos(i, j);
 
 		if (scnval = rdboard(i, j))
 			putvdg(0x40 * !!(scnval & 0x80) + 0x30 + (scnval & 0x7f));
