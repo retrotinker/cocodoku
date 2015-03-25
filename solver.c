@@ -272,8 +272,7 @@ int solve(int row, int column)
 	if (!rdboard(row, column)) {
 		for (i = 1; i <= 9; i++) {
 			wrboard(row, column, i);
-
-			drawboard();
+			putboard(row, column, i);
 
 			if (invalid(1))
 				continue;
@@ -286,6 +285,7 @@ int solve(int row, int column)
 		}
 
 		wrboard(row, column, 0);
+		putboard(row, column, 0);
 		return 0;
 	}
 
