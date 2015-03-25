@@ -562,6 +562,26 @@ void playboard(void)
 	}
 }
 
+void solveboard(void)
+{
+	cls(0);
+
+	setupboard();
+
+	curpos(21);
+	puts("COCODOKU");
+
+	drawframe();
+	drawboard();
+
+	if (solve(0, 0))
+		showvalid();
+	else
+		showinvalid();
+
+	while (chkchar() == -1) {}
+}
+
 void main(int argc, char *argv)
 {
 	memcpy(GAMERAM, titleboard, sizeof(titleboard));
@@ -575,21 +595,7 @@ restart:
 
 	playboard();
 
-	cls(0);
-
-	drawframe();
-
-	curpos(21);
-	puts("COCODOKU");
-
-	drawboard();
-
-	if (solve(0, 0))
-		showvalid();
-	else
-		showinvalid();
-
-	while (chkchar() == -1) {}
+	solveboard();
 
 	goto restart;
 }
