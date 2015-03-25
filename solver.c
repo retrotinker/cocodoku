@@ -79,12 +79,12 @@ int boardpos(int i, j)
 	return pos;
 }
 
-void wrboard(int i, int j, char val)
+void wrgame(int i, int j, char val)
 {
 	*((char *)GAMERAM + i*9 + j) = val;
 }
 
-int rdboard(int i, int j)
+int rdgame(int i, int j)
 {
 	return *((char *)GAMERAM + i*9 + j);
 }
@@ -123,7 +123,7 @@ void drawboard(void)
 
 	for (i = 0; i < 9; i++) {
 		for (j = 0; j < 9; j++) {
-			val = rdboard(i, j);
+			val = rdgame(i, j);
 
 			putboard(i, j, val);
 		}
@@ -159,7 +159,7 @@ int invldrow(int row, int okzero)
 	memset(seen, 0, 9);
 
 	for (col = 0; col < 9; col++) {
-		val = rdboard(row, col);
+		val = rdgame(row, col);
 		val &= 0x7f;
 		if (!val)
 			if (okzero)
@@ -183,7 +183,7 @@ int invldcol(int col, int okzero)
 	memset(seen, 0, 9);
 
 	for (row = 0; row < 9; row++) {
-		val = rdboard(row, col);
+		val = rdgame(row, col);
 		val &= 0x7f;
 		if (!val)
 			if (okzero)
@@ -210,7 +210,7 @@ int invldblock(int i, int okzero)
 		bi = (3 * (i / 3)) + (j / 3);
 		bj = (3 * (i % 3)) + (j % 3);
 
-		val = rdboard(bi, bj);
+		val = rdgame(bi, bj);
 		val &= 0x7f;
 		if (!val)
 			if (okzero)
@@ -269,9 +269,9 @@ int solve(int row, int column)
 		ncol = 0;
 	}
 
-	if (!rdboard(row, column)) {
+	if (!rdgame(row, column)) {
 		for (i = 1; i <= 9; i++) {
-			wrboard(row, column, i);
+			wrgame(row, column, i);
 			putboard(row, column, i);
 
 			if (invalid(1))
@@ -284,7 +284,7 @@ int solve(int row, int column)
 				return 1;
 		}
 
-		wrboard(row, column, 0);
+		wrgame(row, column, 0);
 		putboard(row, column, 0);
 		return 0;
 	}
@@ -382,7 +382,7 @@ void editboard(void)
 	for (;;) {
 		pos = boardpos(i, j);
 
-		if (scnval = rdboard(i, j))
+		if (scnval = rdgame(i, j))
 			putvdg(0x70 + (scnval & 0x7f));
 		else
 			putvdg(0x20);
@@ -390,7 +390,7 @@ void editboard(void)
 			val = chkchar();
 		} while (val == -1);
 		curpos(pos);
-		if (scnval = rdboard(i, j))
+		if (scnval = rdgame(i, j))
 			putvdg(0x30 + (scnval & 0x7f));
 		else
 			putchar(' ');
@@ -399,9 +399,9 @@ void editboard(void)
 		if ((val >= '0') && (val <= '9')) {
 			val -= '0';
 			if (!val)
-				wrboard(i, j, 0);
+				wrgame(i, j, 0);
 			else
-				wrboard(i, j, 0x80 + val);
+				wrgame(i, j, 0x80 + val);
 
 			if (invalid(1))
 				showinvalid();
@@ -507,7 +507,7 @@ void playboard(void)
 	for (;;) {
 		pos = boardpos(i, j);
 
-		if (scnval = rdboard(i, j))
+		if (scnval = rdgame(i, j))
 			putvdg(0x40 * !!(scnval & 0x80) + 0x30 + (scnval & 0x7f));
 		else
 			putvdg(0x20);
@@ -515,18 +515,18 @@ void playboard(void)
 			val = chkchar();
 		} while (val == -1);
 		curpos(pos);
-		if (scnval = rdboard(i, j))
+		if (scnval = rdgame(i, j))
 			putvdg(0x40 * !(scnval & 0x80) + 0x30 + (scnval & 0x7f));
 		else
 			putchar(' ');
 
 		curpos(pos);
 		if ((val >= '0') && (val <= '9')) {
-			if (rdboard(i, j) & 0x80)
+			if (rdgame(i, j) & 0x80)
 				continue;
 
 			val -= '0';
-			wrboard(i, j, val);
+			wrgame(i, j, val);
 
 			if (invalid(1))
 				showinvalid();
