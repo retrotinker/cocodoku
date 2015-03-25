@@ -252,7 +252,7 @@ void showtitle(void)
 	drawframe();
 	drawboard();
 
-	curpos(53);
+	curpos(21);
 	puts("COCODOKU");
 
 	curpos(114);
@@ -284,6 +284,9 @@ void editpuzzle(void)
 	int i = 0, j = 0, k;
 
 	cls(0);
+
+	curpos(21);
+	puts("COCODOKU");
 
 	drawframe();
 	drawboard();
@@ -394,7 +397,7 @@ restart:
 
 	drawframe();
 
-	curpos(12);
+	curpos(21);
 	puts("COCODOKU");
 
 	drawboard();
