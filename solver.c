@@ -288,10 +288,10 @@ void editpuzzle(void)
 	drawframe();
 	drawboard();
 	if (invalid(1)) {
-		curpos(492);
+		curpos(485);
 		puts("INVALID");
 	} else {
-		curpos(493);
+		curpos(486);
 		puts("VALID");
 	}
 
@@ -322,7 +322,7 @@ void editpuzzle(void)
 			else
 				wrboard(i, j, 0x80 + val);
 
-			curpos(492);
+			curpos(485);
 			if (invalid(1)) {
 				puts("INVALID");
 			} else {
@@ -353,10 +353,10 @@ void editpuzzle(void)
 				drawboard();
 			} else {
 				if (invalid(1)) {
-					curpos(492);
+					curpos(485);
 					puts("INVALID");
 				} else {
-					curpos(493);
+					curpos(486);
 					puts("VALID");
 				}
 			}
@@ -400,10 +400,10 @@ restart:
 	drawboard();
 
 	if (solve(0, 0)) {
-		curpos(493);
+		curpos(485);
 		puts("VALID");
 	} else {
-		curpos(492);
+		curpos(486);
 		puts("INVALID");
 	}
 
