@@ -4,7 +4,7 @@
  * Copyright 2015 by John W. Linville
  */
 
-#define	BOARDRAM	0x0800
+#define	GAMERAM		0x0800
 #define BOARDSIZE	9*9
 
 #define	KEY_LEFT	0x08
@@ -43,22 +43,22 @@ void abort(char *str)
 
 void clrboard(void)
 {
-	memset((char *)BOARDRAM, 0, BOARDSIZE);
+	memset((char *)GAMERAM, 0, BOARDSIZE);
 }
 
 void saveboard(void)
 {
-	memcpy((char *)BOARDRAM+BOARDSIZE, BOARDRAM, BOARDSIZE);
+	memcpy((char *)GAMERAM+BOARDSIZE, GAMERAM, BOARDSIZE);
 }
 
 void resetboard(void)
 {
-	memcpy((char *)BOARDRAM, BOARDRAM+BOARDSIZE, BOARDSIZE);
+	memcpy((char *)GAMERAM, GAMERAM+BOARDSIZE, BOARDSIZE);
 }
 
 void setupboard(void)
 {
-	char *ptr = BOARDRAM;
+	char *ptr = GAMERAM;
 	int i;
 
 	for (i = 0; i < BOARDSIZE; ptr++, i++)
@@ -81,12 +81,12 @@ int boardpos(int i, j)
 
 void wrboard(int i, int j, char val)
 {
-	*((char *)BOARDRAM + i*9 + j) = val;
+	*((char *)GAMERAM + i*9 + j) = val;
 }
 
 int rdboard(int i, int j)
 {
-	return *((char *)BOARDRAM + i*9 + j);
+	return *((char *)GAMERAM + i*9 + j);
 }
 
 void putboard(int i, int j, char val)
@@ -564,7 +564,7 @@ void playboard(void)
 
 void main(int argc, char *argv)
 {
-	memcpy(BOARDRAM, titleboard, sizeof(titleboard));
+	memcpy(GAMERAM, titleboard, sizeof(titleboard));
 
 	showtitle();
 
