@@ -526,10 +526,7 @@ void playboard(void)
 				continue;
 
 			val -= '0';
-			if (!val)
-				wrboard(i, j, 0);
-			else
-				wrboard(i, j, val);
+			wrboard(i, j, val);
 
 			if (invalid(1))
 				showinvalid();
