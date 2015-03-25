@@ -76,6 +76,20 @@ int rdboard(int i, int j)
 	return *((char *)BOARDRAM + i*9 + j);
 }
 
+void showvalid(void)
+{
+	curpos(485);
+	putvdg(0x80);
+	puts("VALID");
+	putvdg(0x80);
+}
+
+void showinvalid(void)
+{
+	curpos(485);
+	puts("INVALID");
+}
+
 void drawboard(void)
 {
 	int i, j, pos;
@@ -344,13 +358,10 @@ void editboard(void)
 
 	drawframe();
 	drawboard();
-	if (invalid(1)) {
-		curpos(485);
-		puts("INVALID");
-	} else {
-		curpos(486);
-		puts("VALID");
-	}
+	if (invalid(1))
+		showinvalid();
+	else
+		showvalid();
 
 	for (;;) {
 		pos = 96 + 2;
@@ -379,14 +390,10 @@ void editboard(void)
 			else
 				wrboard(i, j, 0x80 + val);
 
-			curpos(485);
-			if (invalid(1)) {
-				puts("INVALID");
-			} else {
-				putvdg(0x80);
-				puts("VALID");
-				putvdg(0x80);
-			}
+			if (invalid(1))
+				showinvalid();
+			else
+				showvalid();
 
 			curpos(pos);
 			if (!val)
@@ -409,13 +416,10 @@ void editboard(void)
 				clrboard();
 				drawboard();
 			} else {
-				if (invalid(1)) {
-					curpos(485);
-					puts("INVALID");
-				} else {
-					curpos(486);
-					puts("VALID");
-				}
+				if (invalid(1))
+					showinvalid();
+				else
+					showvalid();
 			}
 		} else if (val == 'R') {
 			resetboard();
@@ -482,13 +486,10 @@ void playboard(void)
 
 	drawframe();
 	drawboard();
-	if (invalid(1)) {
-		curpos(485);
-		puts("INVALID");
-	} else {
-		curpos(486);
-		puts("VALID");
-	}
+	if (invalid(1))
+		showinvalid();
+	else
+		showvalid();
 
 	for (;;) {
 		pos = 96 + 2;
@@ -520,14 +521,10 @@ void playboard(void)
 			else
 				wrboard(i, j, val);
 
-			curpos(485);
-			if (invalid(1)) {
-				puts("INVALID");
-			} else {
-				putvdg(0x80);
-				puts("VALID");
-				putvdg(0x80);
-			}
+			if (invalid(1))
+				showinvalid();
+			else
+				showvalid();
 
 			curpos(pos);
 			if (!val)
@@ -580,13 +577,10 @@ restart:
 
 	drawboard();
 
-	if (solve(0, 0)) {
-		curpos(485);
-		puts("VALID");
-	} else {
-		curpos(486);
-		puts("INVALID");
-	}
+	if (solve(0, 0))
+		showvalid();
+	else
+		showinvalid();
 
 	while (chkchar() == -1) {}
 
