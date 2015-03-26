@@ -1,5 +1,5 @@
 /*
- * CoCo sudoku solver example using bcc09
+ * CoCo sudoku game cartridge using bcc09
  *
  * Copyright 2015 by John W. Linville
  */
