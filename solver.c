@@ -581,6 +581,17 @@ void solveboard(void)
 	curpos(21);
 	puts("COCODOKU");
 
+	curpos(242);
+	puts("USE ");
+	putvdg(0x02);
+	putvdg(0x12);
+	putvdg(0x05);
+	putvdg(0x01);
+	putvdg(0x0b);
+	puts(" KEY");
+	curpos(274);
+	puts("TO EXIT SOLVER");
+
 	drawframe();
 	drawboard();
 
