@@ -428,7 +428,7 @@ enum solver editboard(void)
 
 			do {
 				val = chkchar();
-			} while ((val == -1) && (val != 'Y') && (val != 'N'));
+			} while ((val == -1) || ((val != 'Y') && (val != 'N')));
 
 			curpos(480);
 			for (k = 0; k < 19; k++)
