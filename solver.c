@@ -71,6 +71,16 @@ void setupgame(void)
 			*ptr = 0;
 }
 
+void wrgame(int i, int j, char val)
+{
+	*((char *)GAMERAM + i*9 + j) = val;
+}
+
+int rdgame(int i, int j)
+{
+	return *((char *)GAMERAM + i*9 + j);
+}
+
 int boardpos(int i, j)
 {
 	int pos;
@@ -82,16 +92,6 @@ int boardpos(int i, j)
 	curpos(pos);
 
 	return pos;
-}
-
-void wrgame(int i, int j, char val)
-{
-	*((char *)GAMERAM + i*9 + j) = val;
-}
-
-int rdgame(int i, int j)
-{
-	return *((char *)GAMERAM + i*9 + j);
 }
 
 void putboard(int i, int j, char val)
@@ -402,7 +402,19 @@ enum solver editboard(void)
 			putchar(' ');
 
 		curpos(pos);
-		if ((val >= '0') && (val <= '9')) {
+		if (val == KEY_LEFT) {
+			if (j)
+				j--;
+		} else if (val == KEY_RIGHT) {
+			if (j < 8)
+				j++;
+		} else if (val == KEY_UP) {
+			if (i)
+				i--;
+		} else if (val == KEY_DOWN) {
+			if (i < 8)
+				i++;
+		} else if ((val >= '0') && (val <= '9')) {
 			val -= '0';
 			if (!val)
 				wrgame(i, j, 0);
@@ -445,18 +457,6 @@ enum solver editboard(void)
 			drawboard();
 		} else if (val == 'S') {
 			snapshotgame();
-		} else if (val == KEY_LEFT) {
-			if (j)
-				j--;
-		} else if (val == KEY_RIGHT) {
-			if (j < 8)
-				j++;
-		} else if (val == KEY_UP) {
-			if (i)
-				i--;
-		} else if (val == KEY_DOWN) {
-			if (i < 8)
-				i++;
 		} else if (val == 'M') {
 			if (invalid(1))
 				continue;
@@ -533,7 +533,21 @@ void playboard(void)
 			putchar(' ');
 
 		curpos(pos);
-		if ((val >= '0') && (val <= '9')) {
+		if (val == KEY_LEFT) {
+			if (j)
+				j--;
+		} else if (val == KEY_RIGHT) {
+			if (j < 8)
+				j++;
+		} else if (val == KEY_UP) {
+			if (i)
+				i--;
+		} else if (val == KEY_DOWN) {
+			if (i < 8)
+				i++;
+		} else if (val == KEY_BREAK) {
+			break;
+		} else if ((val >= '0') && (val <= '9')) {
 			if (rdgame(i, j) & 0x80)
 				continue;
 
@@ -555,21 +569,6 @@ void playboard(void)
 			drawboard();
 		} else if (val == 'S') {
 			snapshotgame();
-		} else if (val == KEY_LEFT) {
-			if (j)
-				j--;
-		} else if (val == KEY_RIGHT) {
-			if (j < 8)
-				j++;
-		} else if (val == KEY_UP) {
-			if (i)
-				i--;
-		} else if (val == KEY_DOWN) {
-			if (i < 8)
-				i++;
-		} else if (val == KEY_BREAK) {
-			if (!invalid(1))
-				break;
 		}
 	}
 }
