@@ -13,6 +13,11 @@
 #define	KEY_RIGHT	0x09
 #define	KEY_BREAK	0x03
 
+enum solver {
+	MANUAL_SOLVE,
+	AUTO_SOLVE,
+};
+
 char titleboard[9][9] = {
 	{ 0x84,    0,    2, 0x83,    0,    6, 0x87,    0,    9, },
 	{    0,    5,    0,    7,    0,    8, 0x81,    0,    0, },
@@ -331,7 +336,7 @@ void showtitle(void)
 	while (chkchar() == -1) {}
 }
 
-void editboard(void)
+enum solver editboard(void)
 {
 	int val, scnval, pos;
 	int i = 0, j = 0, k;
@@ -452,9 +457,14 @@ void editboard(void)
 		} else if (val == KEY_DOWN) {
 			if (i < 8)
 				i++;
-		} else if (val == KEY_BREAK) {
-			if (!invalid(1))
-				break;
+		} else if (val == 'M') {
+			if (invalid(1))
+				continue;
+			return MANUAL_SOLVE;
+		} else if (val == 'A') {
+			if (invalid(1))
+				continue;
+			return AUTO_SOLVE;
 		}
 	}
 }
@@ -599,15 +609,23 @@ void solveboard(void)
 
 void main(int argc, char *argv)
 {
+	enum solver result;
+
 	showtitle();
 
 	clrboard();
 
 	for (;;) {
-		editboard();
+		result = editboard();
 
-		playboard();
+		switch (result) {
+		case MANUAL_SOLVE:
+			playboard();
+			break;
 
-		solveboard();
+		case AUTO_SOLVE:
+			solveboard();
+			break;
+		}
 	}
 }
