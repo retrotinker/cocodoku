@@ -46,22 +46,22 @@ void abort(char *str)
 	exit();
 }
 
-void clrboard(void)
+void cleargame(void)
 {
 	memset((char *)GAMERAM, 0, BOARDSIZE);
 }
 
-void saveboard(void)
+void snapshotgame(void)
 {
 	memcpy((char *)GAMERAM+BOARDSIZE, GAMERAM, BOARDSIZE);
 }
 
-void resetboard(void)
+void restoregame(void)
 {
 	memcpy((char *)GAMERAM, GAMERAM+BOARDSIZE, BOARDSIZE);
 }
 
-void setupboard(void)
+void setupgame(void)
 {
 	char *ptr = GAMERAM;
 	int i;
@@ -379,8 +379,8 @@ enum solver editboard(void)
 	curpos(499);
 	puts("SETUP PUZZLE");
 
-	setupboard();
-	saveboard();
+	setupgame();
+	snapshotgame();
 
 	drawframe();
 	drawboard();
@@ -436,7 +436,7 @@ enum solver editboard(void)
 				putvdg(0x80);
 
 			if (val == 'Y') {
-				clrboard();
+				cleargame();
 				drawboard();
 			} else {
 				if (invalid(1))
@@ -445,7 +445,7 @@ enum solver editboard(void)
 					showvalid();
 			}
 		} else if (val == 'R') {
-			resetboard();
+			restoregame();
 			drawboard();
 		} else if (val == KEY_LEFT) {
 			if (j)
@@ -512,8 +512,8 @@ void playboard(void)
 	curpos(499);
 	puts("FORFEIT GAME");
 
-	setupboard();
-	saveboard();
+	setupgame();
+	snapshotgame();
 
 	drawframe();
 	drawboard();
@@ -557,10 +557,10 @@ void playboard(void)
 			else
 				putvdg(0x70 + val);
 		} else if (val == 'R') {
-			resetboard();
+			restoregame();
 			drawboard();
 		} else if (val == 'S') {
-			saveboard();
+			snapshotgame();
 		} else if (val == KEY_LEFT) {
 			if (j)
 				j--;
@@ -589,7 +589,7 @@ void solveboard(void)
 	curpos(35);
 	puts("AUTO SOLVER");
 
-	setupboard();
+	setupgame();
 
 	curpos(21);
 	puts("COCODOKU");
@@ -615,7 +615,7 @@ void main(int argc, char *argv)
 
 	showtitle();
 
-	clrboard();
+	cleargame();
 
 	for (;;) {
 		result = editboard();
