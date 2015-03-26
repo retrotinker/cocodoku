@@ -423,16 +423,16 @@ enum solver editboard(void)
 				putchar(' ');
 			else
 				putvdg(0x30 + val);
-		} else if (val == 'C') {
+		} else if (val == 'N') {
 			curpos(480);
-			puts("CLEAR BOARD? (Y/N)");
+			puts("CLEAR PUZZLE? (Y/N)");
 
 			do {
 				val = chkchar();
 			} while ((val == -1) && (val != 'Y') && (val != 'N'));
 
 			curpos(480);
-			for (k = 0; k < 18; k++)
+			for (k = 0; k < 19; k++)
 				putvdg(0x80);
 
 			if (val == 'Y') {
@@ -447,6 +447,8 @@ enum solver editboard(void)
 		} else if (val == 'R') {
 			restoregame();
 			drawboard();
+		} else if (val == 'S') {
+			snapshotgame();
 		} else if (val == KEY_LEFT) {
 			if (j)
 				j--;
