@@ -476,39 +476,33 @@ void playboard(void)
 
 	cls(0);
 
-	curpos(34);
-	puts("MANUAL PLAY");
-
 	curpos(21);
 	puts("COCODOKU");
 
-	curpos(83);
-	putvdg(0x12);
-	puts("ESET PUZZLE");
+	curpos(35);
+	puts("MANUAL PLAY");
 
-	curpos(147);
+	curpos(117);
 	putvdg(0x13);
-	puts("AVE PROGRESS");
+	puts("NAPSHOT");
 
-	curpos(275);
+	curpos(149);
+	putvdg(0x12);
+	puts("ESTORE");
+
+	curpos(245);
+	putvdg(0x11);
+	puts("UIT GAME");
+
+	curpos(371);
 	puts("USE ARROWS TO");
-	curpos(308);
+	curpos(404);
 	puts("MOVE AROUND");
 
-	curpos(370);
+	curpos(466);
 	puts("USE NUMBERS TO");
-	curpos(403);
-	puts("SOLVE PUZZLE");
-
-	curpos(467);
-	putvdg(0x02);
-	putvdg(0x12);
-	putvdg(0x05);
-	putvdg(0x01);
-	putvdg(0x0b);
-	puts(" KEY TO");
 	curpos(499);
-	puts("FORFEIT GAME");
+	puts("SETUP PUZZLE");
 
 	setupgame();
 	snapshotgame();
@@ -545,8 +539,6 @@ void playboard(void)
 		} else if (val == KEY_DOWN) {
 			if (i < 8)
 				i++;
-		} else if (val == KEY_BREAK) {
-			break;
 		} else if ((val >= '0') && (val <= '9')) {
 			if (rdgame(i, j) & 0x80)
 				continue;
@@ -564,11 +556,13 @@ void playboard(void)
 				putchar(' ');
 			else
 				putvdg(0x70 + val);
+		} else if (val == 'S') {
+			snapshotgame();
 		} else if (val == 'R') {
 			restoregame();
 			drawboard();
-		} else if (val == 'S') {
-			snapshotgame();
+		} else if (val == 'Q') {
+			break;
 		}
 	}
 }
