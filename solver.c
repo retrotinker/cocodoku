@@ -117,6 +117,14 @@ void showinvalid(void)
 	puts("INVALID");
 }
 
+void testvalid(void)
+{
+	if (invalid(1))
+		showinvalid();
+	else
+		showvalid();
+}
+
 void drawboard(void)
 {
 	int i, j;
@@ -419,10 +427,7 @@ enum solver editboard(void)
 			else
 				wrgame(i, j, 0x80 + val);
 
-			if (invalid(1))
-				showinvalid();
-			else
-				showvalid();
+			testvalid();
 
 			curpos(pos);
 			if (!val)
@@ -446,14 +451,12 @@ enum solver editboard(void)
 				cleargame();
 				drawboard();
 			} else {
-				if (invalid(1))
-					showinvalid();
-				else
-					showvalid();
+				testvalid();
 			}
 		} else if (val == 'R') {
 			restoregame();
 			drawboard();
+			testvalid();
 		} else if (val == 'S') {
 			snapshotgame();
 		} else if (val == 'M') {
@@ -549,10 +552,7 @@ void playboard(void)
 			val -= '0';
 			wrgame(i, j, val);
 
-			if (invalid(1))
-				showinvalid();
-			else
-				showvalid();
+			testvalid();
 
 			curpos(pos);
 			if (!val)
@@ -564,6 +564,7 @@ void playboard(void)
 		} else if (val == 'R') {
 			restoregame();
 			drawboard();
+			testvalid();
 		} else if (val == 'Q') {
 			tink();	/* indicate keypress */
 			break;
@@ -604,10 +605,7 @@ void solveboard(void)
 	if (result == -1)
 		return;
 
-	if (result)
-		showvalid();
-	else
-		showinvalid();
+	testvalid();
 
 	while (chkchar() != KEY_BREAK) {}
 
