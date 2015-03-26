@@ -300,6 +300,8 @@ void showtitle(void)
 {
 	cls(0);
 
+	memcpy(GAMERAM, titleboard, sizeof(titleboard));
+
 	drawframe();
 	drawboard();
 
@@ -597,8 +599,6 @@ void solveboard(void)
 
 void main(int argc, char *argv)
 {
-	memcpy(GAMERAM, titleboard, sizeof(titleboard));
-
 	showtitle();
 
 	clrboard();
