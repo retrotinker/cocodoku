@@ -603,12 +603,11 @@ void main(int argc, char *argv)
 
 	clrboard();
 
-restart:
-	editboard();
+	for (;;) {
+		editboard();
 
-	playboard();
+		playboard();
 
-	solveboard();
-
-	goto restart;
+		solveboard();
+	}
 }
