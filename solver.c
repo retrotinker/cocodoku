@@ -464,6 +464,9 @@ void playboard(void)
 
 	cls(0);
 
+	curpos(34);
+	puts("MANUAL SOLVER");
+
 	curpos(21);
 	puts("COCODOKU");
 
@@ -568,6 +571,9 @@ void solveboard(void)
 	int result;
 
 	cls(0);
+
+	curpos(35);
+	puts("AUTO SOLVER");
 
 	setupboard();
 
