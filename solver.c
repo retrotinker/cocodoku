@@ -5,7 +5,7 @@
  */
 
 #define	GAMERAM		0x0600
-#define BOARDSIZE	9*9
+#define GAMESIZE	9*9
 
 #define	KEY_LEFT	0x08
 #define	KEY_UP		0x5e
@@ -18,7 +18,7 @@ enum solver {
 	AUTO_SOLVE,
 };
 
-char titleboard[9][9] = {
+char titlegame[9][9] = {
 	{ 0x84,    0,    2, 0x83,    0,    6, 0x87,    0,    9, },
 	{    0,    5,    0,    7,    0,    8, 0x81,    0,    0, },
 	{    0, 0x88,    0,    1, 0x84,    2,    0,    0, 0x86, },
@@ -48,17 +48,17 @@ void abort(char *str)
 
 void cleargame(void)
 {
-	memset((char *)GAMERAM, 0, BOARDSIZE);
+	memset((char *)GAMERAM, 0, GAMESIZE);
 }
 
 void snapshotgame(void)
 {
-	memcpy((char *)GAMERAM+BOARDSIZE, GAMERAM, BOARDSIZE);
+	memcpy((char *)GAMERAM+GAMESIZE, GAMERAM, GAMESIZE);
 }
 
 void restoregame(void)
 {
-	memcpy((char *)GAMERAM, GAMERAM+BOARDSIZE, BOARDSIZE);
+	memcpy((char *)GAMERAM, GAMERAM+GAMESIZE, GAMESIZE);
 }
 
 void setupgame(void)
@@ -66,7 +66,7 @@ void setupgame(void)
 	char *ptr = GAMERAM;
 	int i;
 
-	for (i = 0; i < BOARDSIZE; ptr++, i++)
+	for (i = 0; i < GAMESIZE; ptr++, i++)
 		if (!(*ptr & 0x80))
 			*ptr = 0;
 }
@@ -305,7 +305,7 @@ void showtitle(void)
 {
 	cls(0);
 
-	memcpy(GAMERAM, titleboard, sizeof(titleboard));
+	memcpy(GAMERAM, titlegame, sizeof(titlegame));
 
 	drawframe();
 	drawboard();
