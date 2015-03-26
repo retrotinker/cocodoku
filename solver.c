@@ -139,6 +139,9 @@ void drawframe(void)
 {
 	int i, j, pos;
 
+	curpos(21);
+	puts("COCODOKU");
+
 	for (i = 64+2; i < 576+2; i += 128) {
 		curpos(i);
 		for (j = 0; j < 13; j++)
@@ -310,9 +313,6 @@ void showtitle(void)
 	drawframe();
 	drawboard();
 
-	curpos(21);
-	puts("COCODOKU");
-
 	curpos(114);
 	puts("NUMERIC PUZZLE");
 
@@ -342,9 +342,6 @@ enum solver editboard(void)
 	int i = 0, j = 0, k;
 
 	cls(0);
-
-	curpos(21);
-	puts("COCODOKU");
 
 	curpos(34);
 	puts("PUZZLE EDITOR");
@@ -476,9 +473,6 @@ void playboard(void)
 
 	cls(0);
 
-	curpos(21);
-	puts("COCODOKU");
-
 	curpos(35);
 	puts("MANUAL PLAY");
 
@@ -577,9 +571,6 @@ void solveboard(void)
 	puts("AUTO SOLVER");
 
 	setupgame();
-
-	curpos(21);
-	puts("COCODOKU");
 
 	curpos(242);
 	puts("USE ");
