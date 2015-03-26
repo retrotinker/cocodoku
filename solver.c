@@ -355,28 +355,28 @@ enum solver editboard(void)
 
 	curpos(117);
 	putvdg(0x12);
-	puts("ESTORE");
+	puts("ESTORE ");
 
 	curpos(149);
 	putvdg(0x0e);
 	puts("EW GAME");
 
-	curpos(244);
+	curpos(212);
 	putvdg(0x01);
 	puts("UTO SOLVER");
 
-	curpos(276);
+	curpos(244);
 	putvdg(0x0d);
 	puts("ANUAL PLAY");
 
-	curpos(371);
+	curpos(339);
 	puts("USE ARROWS TO");
-	curpos(404);
+	curpos(372);
 	puts("MOVE AROUND");
 
-	curpos(466);
+	curpos(434);
 	puts("USE NUMBERS TO");
-	curpos(499);
+	curpos(467);
 	puts("SETUP PUZZLE");
 
 	setupgame();
@@ -488,21 +488,21 @@ void playboard(void)
 
 	curpos(149);
 	putvdg(0x12);
-	puts("ESTORE");
+	puts("ESTORE ");
 
-	curpos(245);
+	curpos(213);
 	putvdg(0x11);
 	puts("UIT GAME");
 
-	curpos(371);
+	curpos(339);
 	puts("USE ARROWS TO");
-	curpos(404);
+	curpos(372);
 	puts("MOVE AROUND");
 
-	curpos(466);
+	curpos(434);
 	puts("USE NUMBERS TO");
-	curpos(499);
-	puts("SETUP PUZZLE");
+	curpos(467);
+	puts("SOLVE PUZZLE");
 
 	setupgame();
 	snapshotgame();
@@ -588,7 +588,7 @@ void solveboard(void)
 	putvdg(0x05);
 	putvdg(0x01);
 	putvdg(0x0b);
-	puts(" KEY");
+	puts(" KEY ");
 	curpos(274);
 	puts("TO EXIT SOLVER");
 
