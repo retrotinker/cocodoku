@@ -256,10 +256,10 @@ int invalid(int okzero)
 
 int solve(int row, int column)
 {
-	int i, nrow, ncol;
+	int i, nrow, ncol, result;
 
-	if (chkchar() != -1)
-		exit();
+	if (chkchar() == KEY_BREAK)
+		return -1;
 
 	if (column != 8) {
 		nrow = row;
@@ -280,8 +280,9 @@ int solve(int row, int column)
 			if (nrow == 9)
 				return 1;
 
-			if (solve(nrow, ncol))
-				return 1;
+			result = solve(nrow, ncol);
+			if (result != 0)
+				return result;
 		}
 
 		wrgame(row, column, 0);
@@ -564,6 +565,8 @@ void playboard(void)
 
 void solveboard(void)
 {
+	int result;
+
 	cls(0);
 
 	setupboard();
@@ -574,12 +577,16 @@ void solveboard(void)
 	drawframe();
 	drawboard();
 
-	if (solve(0, 0))
+	result = solve(0, 0);
+	if (result == -1)
+		return;
+
+	if (result)
 		showvalid();
 	else
 		showinvalid();
 
-	while (chkchar() == -1) {}
+	while (chkchar() != KEY_BREAK) {}
 }
 
 void main(int argc, char *argv)
