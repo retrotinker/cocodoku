@@ -349,33 +349,35 @@ enum solver editboard(void)
 	curpos(34);
 	puts("PUZZLE EDITOR");
 
-	curpos(83);
+	curpos(85);
+	putvdg(0x13);
+	puts("NAPSHOT");
+
+	curpos(117);
 	putvdg(0x12);
-	puts("ESET PUZZLE");
+	puts("ESTORE");
 
-	curpos(147);
-	putvdg(0x03);
-	puts("LEAR PUZZLE");
+	curpos(149);
+	putvdg(0x0e);
+	puts("EW GAME");
 
-	curpos(275);
+	curpos(244);
+	putvdg(0x01);
+	puts("UTO SOLVER");
+
+	curpos(276);
+	putvdg(0x0d);
+	puts("ANUAL PLAY");
+
+	curpos(371);
 	puts("USE ARROWS TO");
-	curpos(308);
+	curpos(404);
 	puts("MOVE AROUND");
 
-	curpos(370);
+	curpos(466);
 	puts("USE NUMBERS TO");
-	curpos(403);
+	curpos(499);
 	puts("SETUP PUZZLE");
-
-	curpos(467);
-	putvdg(0x02);
-	putvdg(0x12);
-	putvdg(0x05);
-	putvdg(0x01);
-	putvdg(0x0b);
-	puts(" KEY TO");
-	curpos(500);
-	puts("START GAME");
 
 	setupboard();
 	saveboard();
@@ -477,7 +479,7 @@ void playboard(void)
 	cls(0);
 
 	curpos(34);
-	puts("MANUAL SOLVER");
+	puts("MANUAL PLAY");
 
 	curpos(21);
 	puts("COCODOKU");
