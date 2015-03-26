@@ -21,9 +21,6 @@ void cls(unsigned char color)
 
 void curpos(unsigned int val)
 {
-	if (val > TXTSIZE)
-		abort("INVALID CURPOS!");
-
 	*CURPOS = TXTBASE + val;
 }
 

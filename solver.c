@@ -40,12 +40,6 @@ int puts(char *str)
 	}
 }
 
-void abort(char *str)
-{
-	puts(str);
-	exit();
-}
-
 void cleargame(void)
 {
 	memset((char *)GAMERAM, 0, GAMESIZE);
