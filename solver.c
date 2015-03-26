@@ -384,10 +384,6 @@ enum solver editboard(void)
 
 	drawframe();
 	drawboard();
-	if (invalid(1))
-		showinvalid();
-	else
-		showvalid();
 
 	for (;;) {
 		pos = boardpos(i, j);
@@ -519,10 +515,6 @@ void playboard(void)
 
 	drawframe();
 	drawboard();
-	if (invalid(1))
-		showinvalid();
-	else
-		showvalid();
 
 	for (;;) {
 		pos = boardpos(i, j);
