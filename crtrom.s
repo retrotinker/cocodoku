@@ -17,6 +17,23 @@ __start:
 	ORCC	#$50
 	CLR	$FFD7
 
+	lda	$ff03		; Disable vsync interrupt generation
+	anda	#$fc
+	sta	$ff03
+	tst	$ff02
+	ldb	$ff01		; Enable hsync interrupt generation
+	orb	#$01
+	stb	$ff01
+
+	lda     $ff23		; Enable square wave audio output
+	anda    #$fb
+	sta     $ff23
+	ldb     #$02
+	orb     $ff22
+	stb     $ff22
+	ora     #$04
+	sta     $ff23
+
 	JSR	_main
 	LEAS	8,S
 	EXPORT	__start

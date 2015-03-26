@@ -18,6 +18,8 @@ enum solver {
 	AUTO_SOLVE,
 };
 
+extern void tink(void);
+
 char titlegame[9][9] = {
 	{ 0x84,    0,    2, 0x83,    0,    6, 0x87,    0,    9, },
 	{    0,    5,    0,    7,    0,    8, 0x81,    0,    0, },
@@ -260,8 +262,10 @@ int solve(int row, int column)
 {
 	int i, nrow, ncol, result;
 
-	if (chkchar() == KEY_BREAK)
+	if (chkchar() == KEY_BREAK) {
+		tink();	/* indicate keypress */
 		return -1;
+	}
 
 	if (column != 8) {
 		nrow = row;
@@ -328,6 +332,8 @@ void showtitle(void)
 	puts("TO CONTINUE");
 
 	while (chkchar() == -1) {}
+
+	tink(); /* indicate keypress */
 }
 
 enum solver editboard(void)
@@ -386,6 +392,7 @@ enum solver editboard(void)
 		do {
 			val = chkchar();
 		} while (val == -1);
+
 		curpos(pos);
 		if (scnval = rdgame(i, j))
 			putvdg(0x30 + (scnval & 0x7f));
@@ -423,6 +430,7 @@ enum solver editboard(void)
 			else
 				putvdg(0x30 + val);
 		} else if (val == 'N') {
+			tink();	/* indicate keypress */
 			curpos(480);
 			puts("CLEAR PUZZLE? (Y/N)");
 
@@ -451,12 +459,18 @@ enum solver editboard(void)
 		} else if (val == 'M') {
 			if (invalid(1))
 				continue;
+			tink();	/* indicate keypress */
 			return MANUAL_SOLVE;
 		} else if (val == 'A') {
 			if (invalid(1))
 				continue;
+			tink();	/* indicate keypress */
 			return AUTO_SOLVE;
+		} else {
+			continue;
 		}
+
+		tink();	/* indicate keypress */
 	}
 }
 
@@ -508,6 +522,7 @@ void playboard(void)
 		do {
 			val = chkchar();
 		} while (val == -1);
+
 		curpos(pos);
 		if (scnval = rdgame(i, j))
 			putvdg(0x40 * !(scnval & 0x80) + 0x30 + (scnval & 0x7f));
@@ -550,8 +565,13 @@ void playboard(void)
 			restoregame();
 			drawboard();
 		} else if (val == 'Q') {
+			tink();	/* indicate keypress */
 			break;
+		} else {
+			continue;
 		}
+
+		tink();	/* indicate keypress */
 	}
 }
 
@@ -590,6 +610,8 @@ void solveboard(void)
 		showinvalid();
 
 	while (chkchar() != KEY_BREAK) {}
+
+	tink();	/* indicate keypress */
 }
 
 void main(int argc, char *argv)
