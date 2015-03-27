@@ -1,5 +1,5 @@
 CARTLOAD=0xc000
-TARGETS=libbcc.a cocodoku.rom
+TARGETS=libbcc.a crtrom.o cocodoku.rom
 EXTRA=cocodoku.aout
 
 all: $(TARGETS)
@@ -15,8 +15,8 @@ libbcc.a: imul.o isl.o isr.o isru.o imod.o imodu.o idiv.o idivu.o \
 	rm -f $@
 	ar09 cr $@ $^
 
-cocodoku.aout: crtrom.o solver.o screen.o cocochr.o tap.o buzz.o
-	ld09 -o $@ -T$(CARTLOAD) $^ -lbcc
+cocodoku.aout: solver.o screen.o cocochr.o tap.o buzz.o
+	ld09 -o $@ -T$(CARTLOAD) -Crom -lbcc $^
 
 cocodoku.rom: cocodoku.aout
 	objcopy09 -O binary $< $@
