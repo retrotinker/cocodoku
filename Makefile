@@ -43,4 +43,4 @@ cocodoku.32k: cocodoku.16k
 	cat $< >> $@
 
 clean:
-	rm -f *.o *.bin *.rom *.s19 *.4k *.8k *.16k *.32k $(TARGETS) $(EXTRA)
+	rm -f *.o *.aout *.bin *.rom *.s19 *.4k *.8k *.16k *.32k $(TARGETS) $(EXTRA)
