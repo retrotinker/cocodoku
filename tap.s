@@ -1,5 +1,5 @@
 	LOC	0
-_tink:
+_tap:
 	pshs	d
 
 	ldb	#$02
@@ -19,4 +19,4 @@ _tink:
 	bne	.1
 
 	puls	d,pc
-	EXPORT _tink
+	EXPORT _tap
