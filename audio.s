@@ -1,13 +1,9 @@
 	LOC	0
 _tap:
-	pshs	d
-
 	ldb	#$02
 	jmp	.1
 
 _buzz:
-	pshs	d
-
 	ldb	#$14
 
 .1:	tst	$ff02		; Wait for vsync
@@ -20,6 +16,6 @@ _buzz:
 	decb
 	bne	.1
 
-	puls	d,pc
+	rts
 	EXPORT _tap
 	EXPORT _buzz
