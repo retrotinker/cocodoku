@@ -4,12 +4,8 @@ _buzz:
 
 	ldb	#$14
 
-.1:	lda	#$00
-.2:	tst	$ff00		; Wait for hsync
+.1:	tst	$ff02		; Wait for vsync
 	sync
-
-	deca
-	bne	.2
 
 	lda	$ff22		; Toggle square wave output...
 	eora	#$02

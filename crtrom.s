@@ -17,13 +17,13 @@ __start:
 	ORCC	#$50
 	CLR	$FFD7
 
-	lda	$ff03		; Disable vsync interrupt generation
+	lda	$ff01		; Disable hsync interrupt generation
 	anda	#$fc
-	sta	$ff03
-	tst	$ff02
-	ldb	$ff01		; Enable hsync interrupt generation
+	sta	$ff01
+	tst	$ff00
+	ldb	$ff03		; Enable vsync interrupt generation
 	orb	#$01
-	stb	$ff01
+	stb	$ff03
 
 	lda     $ff23		; Enable square wave audio output
 	anda    #$fb
