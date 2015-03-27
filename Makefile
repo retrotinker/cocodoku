@@ -15,7 +15,7 @@ libbcc.a: imul.o isl.o isr.o isru.o imod.o imodu.o idiv.o idivu.o \
 	rm -f $@
 	ar09 cr $@ $^
 
-cocodoku.aout: crtrom.o solver.o screen.o cocochr.o tink.o
+cocodoku.aout: crtrom.o solver.o screen.o cocochr.o tink.o buzz.o
 	ld09 -o $@ -T$(CARTLOAD) $^ -lbcc
 
 cocodoku.rom: cocodoku.aout

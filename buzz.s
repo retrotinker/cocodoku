@@ -1,8 +1,8 @@
 	LOC	0
-_tink:
+_buzz:
 	pshs	d
 
-	ldb	#$02
+	ldb	#$14
 
 .1:	lda	#$00
 .2:	tst	$ff00		; Wait for hsync
@@ -19,4 +19,4 @@ _tink:
 	bne	.1
 
 	puls	d,pc
-	EXPORT _tink
+	EXPORT _buzz

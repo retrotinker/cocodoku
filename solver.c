@@ -19,6 +19,7 @@ enum solver {
 };
 
 extern void tink(void);
+extern void buzz(void);
 
 char titlegame[9][9] = {
 	{ 0x84,    0,    2, 0x83,    0,    6, 0x87,    0,    9, },
@@ -115,6 +116,7 @@ void showinvalid(void)
 {
 	curpos(485);
 	puts("INVALID");
+	buzz();
 }
 
 void testvalid(void)
