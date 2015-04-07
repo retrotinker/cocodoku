@@ -3,7 +3,7 @@
 *.aout
 *.bin
 *.s19
-*.rom
+*.ccc
 *.4k
 *.8k
 *.16k

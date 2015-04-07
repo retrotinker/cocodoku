@@ -1,5 +1,5 @@
 CARTLOAD=0xc000
-TARGETS=libbcc.a crtrom.o cocodoku.rom
+TARGETS=libbcc.a crtrom.o cocodoku.ccc
 EXTRA=cocodoku.aout
 
 all: $(TARGETS)
@@ -18,10 +18,10 @@ libbcc.a: imul.o isl.o isr.o isru.o imod.o imodu.o idiv.o idivu.o \
 cocodoku.aout: solver.o screen.o cocochr.o audio.o
 	ld09 -o $@ -T$(CARTLOAD) -Crom -lbcc $^
 
-cocodoku.rom: cocodoku.aout
+cocodoku.ccc: cocodoku.aout
 	objcopy09 -O binary $< $@
 
-cocodoku.4k: cocodoku.rom
+cocodoku.4k: cocodoku.ccc
 	rm -f $@
 	dd if=/dev/zero bs=4k count=1 | \
 		tr '\000' '\377' > $@
@@ -43,4 +43,4 @@ cocodoku.32k: cocodoku.16k
 	cat $< >> $@
 
 clean:
-	rm -f *.o *.aout *.bin *.rom *.s19 *.4k *.8k *.16k *.32k $(TARGETS) $(EXTRA)
+	rm -f *.o *.aout *.bin *.ccc *.s19 *.4k *.8k *.16k *.32k $(TARGETS) $(EXTRA)
